@@ -1,3 +1,3 @@
 fn main() {
-    util::build::build();
+    rust_competitive_helper::util::build::build();
 }

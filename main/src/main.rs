@@ -1,17 +1,17 @@
-use std::ops::AddAssign;
-use std::marker::PhantomData;
-use std::ops::MulAssign;
 use std::ops::Rem;
-use std::ops::Mul;
-use std::ops::SubAssign;
-use std::ops::Add;
-use std::io::Read;
-use std::ops::RemAssign;
-use std::ops::Sub;
 use std::io::Write;
-use std::ops::DivAssign;
+use std::ops::Add;
+use std::ops::Sub;
 use std::ops::Div;
+use std::ops::AddAssign;
+use std::ops::DivAssign;
+use std::ops::Mul;
 use std::fmt::Display;
+use std::ops::SubAssign;
+use std::marker::PhantomData;
+use std::io::Read;
+use std::ops::MulAssign;
+use std::ops::RemAssign;
 
 
 pub trait Addable: Add<Output = Self> + AddAssign + Copy {}
@@ -253,6 +253,7 @@ impl<'s> Input<'s> {
         res
     }
 
+    #[allow(clippy::should_implement_trait)]
     pub fn into_iter<T: Readable>(self) -> InputIterator<'s, T> {
         InputIterator {
             input: self,
@@ -429,7 +430,7 @@ pub struct Output {
     output: Box<dyn Write>,
     buf: Vec<u8>,
     at: usize,
-    autoflush: bool,
+    auto_flush: bool,
 }
 
 impl Output {
@@ -440,25 +441,22 @@ impl Output {
             output,
             buf: vec![0; Self::DEFAULT_BUF_SIZE],
             at: 0,
-            autoflush: false,
+            auto_flush: false,
         }
     }
 
-    pub fn new_with_autoflush(output: Box<dyn Write>) -> Self {
+    pub fn new_with_auto_flush(output: Box<dyn Write>) -> Self {
         Self {
             output,
             buf: vec![0; Self::DEFAULT_BUF_SIZE],
             at: 0,
-            autoflush: true,
+            auto_flush: true,
         }
     }
 
     pub fn flush(&mut self) {
         if self.at != 0 {
-            let mut n = 0;
-            while n != self.at {
-                n += self.output.write(&self.buf[n..self.at]).unwrap();
-            }
+            self.output.write_all(&self.buf[..self.at]).unwrap();
             self.at = 0;
         }
     }
@@ -476,7 +474,7 @@ impl Output {
     }
 
     pub fn maybe_flush(&mut self) {
-        if self.autoflush {
+        if self.auto_flush {
             self.flush();
         }
     }
@@ -527,7 +525,7 @@ impl Write for Output {
             start += len;
             rem -= len;
         }
-        if self.autoflush {
+        if self.auto_flush {
             self.flush();
         }
         Ok(buf.len())
@@ -545,13 +543,13 @@ pub trait Writable {
 
 impl Writable for &str {
     fn write(&self, output: &mut Output) {
-        output.write(&self.as_bytes()).unwrap();
+        output.write_all(self.as_bytes()).unwrap();
     }
 }
 
 impl Writable for String {
     fn write(&self, output: &mut Output) {
-        output.write(&self.as_bytes()).unwrap();
+        output.write_all(self.as_bytes()).unwrap();
     }
 }
 
@@ -651,7 +649,9 @@ macro_rules! out_line {
 }
 
 fn solve(input: &mut Input, _test_case: usize) {
-    dbg!("wow?2");
+    let n: usize = input.read();
+    let res = if n % 2 == 0 && n > 2 { "YES" } else { "NO" };
+    out_line!(res);
 }
 
 pub(crate) fn run(mut input: Input) -> bool {
@@ -660,7 +660,6 @@ pub(crate) fn run(mut input: Input) -> bool {
     input.skip_whitespace();
     !input.peek().is_some()
 }
-
 
 fn main() {
     let mut sin = std::io::stdin();
