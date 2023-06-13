@@ -2,3 +2,5 @@
 #![allow(clippy::type_complexity)]
 
 pub mod io;
+pub mod misc;
+pub mod numbers;
