@@ -1,0 +1,20 @@
+Editorial's solution involves finding the diameter of a tree and is much simpler.
+My solution Dynamic Programming on Trees - Reroot technique.
+I had the idea somewhat quickly, spent some good time to nail the transitions on paper.
+Idea was clear, but coding it was way too hard.
+Some of the nodes had no possible answer (so I coded it as None). But then sometimes the node
+would have answer 0 when it should have been None but *not always*. Sometimes 0 was a valid answer.
+The code ended up absolute shit, 300 lines of ifs. I honestly don't know how it got AC, thank you Rust.
+The idea was clear enough, though, so that's nice.
+
+Good:
+I had the (not easy) idea quickly.
+I first transcribed the transitions on paper (and pseudocode).
+Bad:
+Did not think too much in terms of actually implementing it (due to Optional values).
+Spent a long time coding.
+Missed the easier editorial solution.
+
+Should be more aware of implementation details next time.
+
+P.S. I am getting good on DP on Trees :D Thank you AoJ.
