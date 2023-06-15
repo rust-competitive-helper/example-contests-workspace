@@ -1,0 +1,8 @@
+Solution was much easier with DP.
+I initially coded it as a brute-force:
+- For each possible change, what would happen to the overall sum?
+But then we need to consider what changes on the prefix and on the suffix.
+It ended up being way more complicated and took a long time to code.
+I should have:
+1. Identified that the code was too complex
+2. Think about other ways to code/other ideas
