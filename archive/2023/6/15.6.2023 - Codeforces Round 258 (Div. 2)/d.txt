@@ -1,0 +1,14 @@
+Initially did not see that the string was only 'a' or 'b'. Was thinking of some complicated stuff with palindromes.
+Then had some good observations somewhat quickly. Thought about code on paper.
+Had a good idea of how to code it up, but even then I missed some details.
+There was one more observation that would make it much easier - Process from left to right, now you only care about indexes.
+
+Good:
+Got the idea quickly, did not get overwhelmed with many sub-problems.
+Bad:
+Was hard to code, and missed a detail I would get if reviewing calmly (my total was wrong).
+Code could have been better if I did not copy-paste so much. I did not want to think too much about abstraction because the benefits
+    are generally not great in CP. In this case, maybe coding it a bit better would end up saving time and effort.
+I saw the tag by mistake (specifically I saw the *lack* of tags such as Data Structures). So I knew the solution would not be some weird stuff.
+
+Consider refactoring/copy-pasting more carefully.
