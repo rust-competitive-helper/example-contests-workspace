@@ -1,0 +1,27 @@
+After careful observations, got the right idea. Took a while to figure out that 18! is too big, but 2^18 is manageable.
+Now with more practice with bitmask DP, it should come to mind next time when seeing numbers < 20.
+At the end, I was computing duplicated answers (because I was treating each digit as unique), so we needed to de-duplicate
+by dividing afterwards. I was not sure about the de-duplication part - would the DP still compute the correct middling answers?
+would the first number be too big to represent with i64?
+Both of those just needed a bit of careful thinking.
+
+The first solutions were too slow.
+1. I swapped the DP states -> [remainder][bitmask] instead of [bitmask][remainder] for cache friendliness
+    In Rust we need to use vec<vec>, which is a bit uncomfortable. Egor has Array2D structure in the lib for that.
+    For the non cache-friedly code, the Array2D was actually quite slower - probably vec<vec> is optimized by the compiler.
+2. I sorted the bitmasks in order to iterate subsets first. (Sorted by on-bits). This was actually not needed, because
+    iterating normally from 0..N will already have computed the subsets first.
+3. It's better to mod the numbers as soon as possible. Operating on big numbers is slower than small numbers, so don't
+    let the numbers get too big if you can mod it before. (I forgot to mod the powers of ten first).
+
+The biggest issue was the switched DP states - code got much slower, TLE.
+Even with the other issues, the code would pass otherwise.
+
+Very nice problem, my first on Bitmask DP. Did not find it too hard.
+
+TODO: Try to solve it with different DP state
+    - How many digits 0 have I used?
+    - How many digits 1 have I used?
+    ...
+    Code it more with a solution bag style.
+
