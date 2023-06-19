@@ -1,5 +1,5 @@
-# example-contests-workspace
+# rust-competitive-programming
 
-Repository for writing contests in Rust with rust-competitive-helper.
+My recent solutions to competitive programming problems. Mostly following [A2OJ Ladder 17](https://earthshakira.github.io/a2oj-clientside/server/Ladder17.html).
 
-More info on how to use rust-competitive-helper for contests [here](https://github.com/rust-competitive-helper/rust-competitive-helper).
+Template from Egor's [rust-competitive-helper](https://github.com/rust-competitive-helper/rust-competitive-helper).
