@@ -1,0 +1,15 @@
+Interesting question about augmenting DSU. I had seen something similar before, so got the idea quickly.
+
+Good:
+Got the overall idea instantly.
+Used DSU from lib and augmented the code. (just need to copy-paste it instead of importing)
+Bad:
+Wasn't careful with details.
+  - missed that the diameter may not change when merging some small cluster.
+  - missed that the original diameter could be from a or b (not necessarily the one that is becoming repr).
+Spent some time trying to make Rust + mutable state to work.
+  - I had a recursive lambda that changed the visited array, which is a mutable borrow, so you can't use the visited again later.
+  - The solution to that is to declare the lambda at the usage site (and possibly redeclare it later when next using visited).
+    - A bit messy but it's OK.
+Almost missed that the graph was a tree (one single path only).
+
