@@ -1,0 +1,9 @@
+Nice Dijkstra + shortest paths problem. We initially had the correct idea, but missed that
+the number of shortest paths could be big (overflowed i32). Spent some time trying to figure out
+why it was wrong.
+
+Good:
+Nice problem, we discussed it on the board.
+Coded Dijkstra nicely with Rust's Reverse.
+Bad:
+Missed the overflow detail (I even knew that the number of shortest paths could be huge, but did not notice here).
