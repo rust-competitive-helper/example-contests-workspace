@@ -1,0 +1,10 @@
+Somewhat easy DSU problem with a bit of graph theory.
+Got the idea immediately, took a bit too long to code it up (still not as used to Rust?)
+Used DSU implementation from Egor, quite simple (but uses extended Vec and Iter stuff which I need to get familiar with).
+Wanted to use Egor's graph lib, but it's way too complicated... Will try to use it again on the next graph problem.
+
+Good:
+Knew how to solve instantly, saw the Floyd Warshall transformation.
+Got DSU on the lib.
+Bad:
+Took too long to implement - should train implementation more? Don't think that's needed, but let's keep it in mind.
