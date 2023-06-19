@@ -1,0 +1,9 @@
+Second Reroot DP in a row, now more comfortable to code.
+Computing out is generally trickier, as you need to consider your siblings, without iterating through them.
+Until now doing some kind of total_sum - my_contribution was the answer.
+
+Good:
+Coding was not that hard.
+Bad:
+Spent some time on an idea which would not work. More careful thinking would see that the idea did not cover all cases.
+  - Fix the i as the LCA. But this does not cover all cases.
