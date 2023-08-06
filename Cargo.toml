@@ -1,5 +1,13 @@
 [workspace]
 members = [
+    "b_greg_and_graph",
+    "d_eternal_victory",
+    "e_breaking_good",
+    "d_prefixes_and_suffixes",
+    "c_prime_number",
+    "b_little_elephant_and_array",
+    "e_enemy_is_weak",
+    "b_ciel_and_duel",
     "main",
     "algo_lib",
 ]

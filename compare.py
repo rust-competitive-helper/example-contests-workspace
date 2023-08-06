@@ -35,7 +35,7 @@ def generate_random_tree(n):
 
 def generate_input():
     # Generate a string of 5 random letters A-E
-    random_letters = ''.join(random.choice('ab') for _ in range(5))
+    random_letters = ''.join(random.choice('ABC') for _ in range(7))
 
     # Concatenate "1" and the string of random letters
     result = random_letters

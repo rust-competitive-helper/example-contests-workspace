@@ -1,6 +1,9 @@
 pub mod array2d;
 pub mod dsu;
+pub mod fenwick;
 pub mod iter_ext;
 pub mod legacy_fill;
 pub mod min_max;
+pub mod treap;
+pub mod treap_map;
 pub mod vec_ext;
