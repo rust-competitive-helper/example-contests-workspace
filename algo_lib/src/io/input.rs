@@ -1,4 +1,4 @@
-use std::fmt::{Debug, Display};
+use std::fmt::Debug;
 use std::io::Read;
 use std::str::FromStr;
 
@@ -113,6 +113,32 @@ impl<'s> Input<'s> {
         let mut res = Vec::with_capacity(size);
         for _ in 0..size {
             res.push(self.read());
+        }
+        res
+    }
+
+    fn read_string(&mut self) -> String {
+        match self.next_token() {
+            None => {
+                panic!("Input exhausted");
+            }
+            Some(res) => unsafe { String::from_utf8_unchecked(res) },
+        }
+    }
+
+    pub fn read_line(&mut self) -> String {
+        let mut res = String::new();
+        while let Some(c) = self.get() {
+            if c == b'\n' {
+                break;
+            }
+            if c == b'\r' {
+                if self.peek() == Some(b'\n') {
+                    self.get();
+                }
+                break;
+            }
+            res.push(c.into());
         }
         res
     }
