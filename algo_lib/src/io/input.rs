@@ -1,6 +1,5 @@
-use std::fmt::Debug;
+use std::fmt::{Debug, Display};
 use std::io::Read;
-use std::marker::PhantomData;
 use std::str::FromStr;
 
 pub struct Input<'s> {
@@ -8,6 +7,26 @@ pub struct Input<'s> {
     buf: Vec<u8>,
     at: usize,
     buf_read: usize,
+}
+
+macro_rules! read_impl {
+    ($t: ty, $read_name: ident, $read_vec_name: ident) => {
+        pub fn $read_name(&mut self) -> $t {
+            self.read()
+        }
+
+        pub fn $read_vec_name(&mut self, len: usize) -> Vec<$t> {
+            self.read_vec(len)
+        }
+    };
+
+    ($t: ty, $read_name: ident, $read_vec_name: ident, $read_pair_vec_name: ident) => {
+        read_impl!($t, $read_name, $read_vec_name);
+
+        pub fn $read_pair_vec_name(&mut self, len: usize) -> Vec<($t, $t)> {
+            self.read_vec(len)
+        }
+    };
 }
 
 impl<'s> Input<'s> {
@@ -35,6 +54,12 @@ impl<'s> Input<'s> {
         if self.refill_buffer() {
             let res = self.buf[self.at];
             self.at += 1;
+            if res == b'\r' {
+                if self.refill_buffer() && self.buf[self.at] == b'\n' {
+                    self.at += 1;
+                }
+                return Some(b'\n');
+            }
             Some(res)
         } else {
             None
@@ -43,7 +68,8 @@ impl<'s> Input<'s> {
 
     pub fn peek(&mut self) -> Option<u8> {
         if self.refill_buffer() {
-            Some(self.buf[self.at])
+            let res = self.buf[self.at];
+            Some(if res == b'\r' { b'\n' } else { res })
         } else {
             None
         }
@@ -85,62 +111,32 @@ impl<'s> Input<'s> {
 
     pub fn read_vec<T: Readable>(&mut self, size: usize) -> Vec<T> {
         let mut res = Vec::with_capacity(size);
-        for _ in 0usize..size {
+        for _ in 0..size {
             res.push(self.read());
         }
         res
     }
 
-    pub fn read_line(&mut self) -> String {
-        let mut res = String::new();
-        while let Some(c) = self.get() {
-            if c == b'\n' {
-                break;
-            }
-            if c == b'\r' {
-                if self.peek() == Some(b'\n') {
-                    self.get();
-                }
-                break;
-            }
-            res.push(c.into());
-        }
-        res
-    }
-
-    #[allow(clippy::should_implement_trait)]
-    pub fn into_iter<T: Readable>(self) -> InputIterator<'s, T> {
-        InputIterator {
-            input: self,
-            phantom: Default::default(),
-        }
-    }
-
     fn read_integer<T: FromStr>(&mut self) -> T
-    where
-        <T as FromStr>::Err: Debug,
+        where
+            <T as FromStr>::Err: Debug,
     {
         let res = self.read_string();
         res.parse::<T>().unwrap()
     }
 
-    fn read_string(&mut self) -> String {
-        match self.next_token() {
-            None => {
-                panic!("Input exhausted");
-            }
-            Some(res) => unsafe { String::from_utf8_unchecked(res) },
-        }
-    }
 
-    fn read_char(&mut self) -> char {
+    pub fn read_char(&mut self) -> char {
         self.skip_whitespace();
         self.get().unwrap().into()
     }
 
-    fn read_float(&mut self) -> f64 {
-        self.read_string().parse().unwrap()
-    }
+    read_impl!(u32, read_unsigned, read_unsigned_vec);
+    read_impl!(u64, read_u64, read_u64_vec);
+    read_impl!(usize, read_size, read_size_vec, read_size_pair_vec);
+    read_impl!(i32, read_int, read_int_vec, read_int_pair_vec);
+    read_impl!(i64, read_long, read_long_vec, read_long_pair_vec);
+    read_impl!(i128, read_i128, read_i128_vec);
 
     fn refill_buffer(&mut self) -> bool {
         if self.at == self.buf_read {
@@ -157,21 +153,9 @@ pub trait Readable {
     fn read(input: &mut Input) -> Self;
 }
 
-impl Readable for String {
-    fn read(input: &mut Input) -> Self {
-        input.read_string()
-    }
-}
-
 impl Readable for char {
     fn read(input: &mut Input) -> Self {
         input.read_char()
-    }
-}
-
-impl Readable for f64 {
-    fn read(input: &mut Input) -> Self {
-        input.read_float()
     }
 }
 
@@ -182,45 +166,20 @@ impl<T: Readable> Readable for Vec<T> {
     }
 }
 
-pub struct InputIterator<'s, T: Readable> {
-    input: Input<'s>,
-    phantom: PhantomData<T>,
-}
-
-impl<'s, T: Readable> Iterator for InputIterator<'s, T> {
-    type Item = T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.input.skip_whitespace();
-        self.input.peek().map(|_| self.input.read())
-    }
-}
-
 macro_rules! read_integer {
-    ($t:ident) => {
+    ($($t:ident)+) => {$(
         impl Readable for $t {
             fn read(input: &mut Input) -> Self {
                 input.read_integer()
             }
         }
-    };
+    )+};
 }
 
-read_integer!(i8);
-read_integer!(i16);
-read_integer!(i32);
-read_integer!(i64);
-read_integer!(i128);
-read_integer!(isize);
-read_integer!(u8);
-read_integer!(u16);
-read_integer!(u32);
-read_integer!(u64);
-read_integer!(u128);
-read_integer!(usize);
+read_integer!(i8 i16 i32 i64 i128 isize u8 u16 u32 u64 u128 usize);
 
 macro_rules! tuple_readable {
-    ( $( $name:ident )+ ) => {
+    ($($name:ident)+) => {
         impl<$($name: Readable), +> Readable for ($($name,)+) {
             fn read(input: &mut Input) -> Self {
                 ($($name::read(input),)+)
