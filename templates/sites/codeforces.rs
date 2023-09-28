@@ -13,7 +13,7 @@ pub(crate) fn run(mut input: Input, mut output: Output) -> bool {
         MultiNumber,
         MultiEof,
     }
-    let test_type = TestType::Single;
+    let test_type = TestType::MultiNumber;
     match test_type {
         TestType::Single => solve(&mut input, &mut output, 1, &pre_calc),
         TestType::MultiNumber => {
