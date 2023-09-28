@@ -14,7 +14,7 @@ fn solve(input: &mut Input, output: &mut Output, _data: &PreCalc) {
         fn solve(&mut self) {}
 
         fn write_output(&mut self, out: &mut Output, test_case: usize) {
-            out.print_line((format!("Case #{}:", test_case)));
+            out.print_line((format!("Case #{}:", test_case), ));
         }
     }
 
