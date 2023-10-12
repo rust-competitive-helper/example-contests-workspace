@@ -1,0 +1,6 @@
+Implementation, complexity analysis was a bit harder to see that it was OK. 
+Got exposed to how to do this kind of mass erase from Sets in Rust. Still sub-par, but approachable (better than C++ anyway).
+
+Not very hard problem, interesting "sanity-check".
+Also possible to do with Union Find (DSU) -> clever definition of "parent" + path compression.
+But I find the Set solution more intuitive.
