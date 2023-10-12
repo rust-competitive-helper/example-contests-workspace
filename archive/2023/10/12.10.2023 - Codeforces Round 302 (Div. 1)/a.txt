@@ -1,0 +1,5 @@
+Easy to see the straightforward DP -> state(index, lines, bugs) -> #ways
+But _really_ tricky to see the optimization -> you don't need the index.
+I will need to revisit this, but will keep that optimization in mind now.
+Looking at the editorial's solution, it seems the same as Knapsack DP implementation without index state. For L -> R solves Unbounded Knapsack, and For R -> L solves 0/1 Knapsack. Need to revisit Algorithms Live videos on this, but good enough for now.
+
