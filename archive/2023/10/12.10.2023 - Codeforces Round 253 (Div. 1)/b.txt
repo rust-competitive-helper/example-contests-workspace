@@ -1,0 +1,5 @@
+Tricky problem. Ended up with a correct _guess_, but struggled to code it.
+I suspect a lot of people guessed it too, as the solution is quite simple, but the
+proof requires some mathematics maturity. Stepping through the proof was pretty nice and the problem setup was pretty nice too.
+
+Key takeaway is to come up with cleaner mathematical notations and pursue them.
