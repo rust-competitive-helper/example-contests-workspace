@@ -1,0 +1,5 @@
+Longest subsegment strictly increasing, given that you can change a single number arbitrarily.
+Initially thought of _subsequence_, which I think makes it much harder -> I should ask to see how to solve that one.
+
+Straightforward problem, didn't struggle with it apart from the misunderstanding. Prefix sum to keep current good segments, 
+iterate over the changed number.
