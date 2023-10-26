@@ -1,0 +1,7 @@
+Interesting problem. Split into cases, and go further. I stopped considering the solution too early, though it was feasible. 
+It may not make sense immediately, but give it some thought. The solution may also not make sense if not considered fully.
+
+1. Solve when best paths are the solution (this doesn't always work, but case 2 works when this does not).
+2. Solve when they intersect
+
+Struggled a bit, but made a lot of progress. Had a bit of trouble coding it, but not much.
