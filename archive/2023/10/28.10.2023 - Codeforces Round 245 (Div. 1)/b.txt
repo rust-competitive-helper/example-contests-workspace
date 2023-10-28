@@ -1,0 +1,1 @@
+Very weirdly written constraints... but the idea is nice. Can only meet at one cell, which greatly reduces possiblities. I thought of the problem very quickly, it was OK to implement, but my solution missed the last tricky consideration, so it could take much longer for me to solve this on contest, depending on luck.
