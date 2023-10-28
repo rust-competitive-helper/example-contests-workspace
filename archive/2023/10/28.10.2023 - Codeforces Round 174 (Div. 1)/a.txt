@@ -1,0 +1,3 @@
+Cute Data Structures problem, thought about it pretty quickly, implemented quickly too.
+
+Also able to overkill with lazy segment tree, but I didn't think about it :thinking:
