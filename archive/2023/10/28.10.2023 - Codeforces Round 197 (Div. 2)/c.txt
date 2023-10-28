@@ -1,0 +1,5 @@
+DP with state optimization -> store both balance weights, notice that only the difference counts.
+Answer reconstruction with the parent technique (when you are transitioning in the dp, store where you came from).
+Can also think of as a graph.
+
+Thought about it pretty quickly, had some trouble implementing due to naive mistakes (interesting how you get rusty when you don't practice often - I would never have made those mistakes in my prime days).
