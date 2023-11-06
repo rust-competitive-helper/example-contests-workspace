@@ -1,0 +1,5 @@
+Very interesting problem, with many subproblems.
+Discovered the solution quickly, struggled a bit too implement. Reasoning through the code helped me get some mistakes, and doing it more so would prevent others. 
+
+Sieve, Prefix Sum, Coordinate Compression...
+Pretty nice subproblems and review of number theory.
